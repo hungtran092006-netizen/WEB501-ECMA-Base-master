@@ -1,99 +1,158 @@
-function Add() {
-  return (
-    <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-6">Thêm mới</h1>
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-      <form className="space-y-6">
-        {/* Text input */}
+function Add() {
+  const navigate = useNavigate();
+  const API_URL = "http://localhost:3001/tours";
+
+  const [tour, setTour] = useState({
+    name: "",
+    destination: "",
+    duration: "",
+    price: "",
+    image: "",
+    description: "",
+    available: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setTour({ ...tour, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      // Tạo ID mới (đơn giản, lấy max id + 1)
+      const resAll = await axios.get(API_URL);
+      const ids = resAll.data.map((t) => t.id);
+      const newId = ids.length ? Math.max(...ids) + 1 : 1;
+
+      const newTour = {
+        ...tour,
+        id: newId,
+        price: Number(tour.price),
+        available: Number(tour.available),
+      };
+
+      await axios.post(API_URL, newTour);
+      alert("Thêm tour thành công!");
+      navigate("/"); // Quay về danh sách
+    } catch (err) {
+      console.error(err);
+      alert("Thêm tour thất bại!");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="p-6 max-w-xl mx-auto">
+      <h1 className="text-2xl font-semibold mb-6">Thêm Tour Mới</h1>
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="text" className="block font-medium mb-1">
-            Text
-          </label>
+          <label className="block mb-1">Tên tour</label>
           <input
             type="text"
-            id="text"
-            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            name="name"
+            value={tour.name}
+            onChange={handleChange}
+            className="w-full border px-3 py-2 rounded"
+            required
           />
         </div>
 
-        {/* Checkbox list */}
         <div>
-          <label className="block font-medium mb-1">Radio</label>
-
-          <div className="flex items-center space-x-2 mb-2">
-            <input
-              type="checkbox"
-              id="flexCheck1"
-              className="h-4 w-4 text-blue-600 rounded border-gray-300"
-            />
-            <label htmlFor="flexCheck1" className="text-gray-700">
-              checkbox 1
-            </label>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              id="flexCheck2"
-              className="h-4 w-4 text-blue-600 rounded border-gray-300"
-            />
-            <label htmlFor="flexCheck2" className="text-gray-700">
-              checkbox 2
-            </label>
-          </div>
+          <label className="block mb-1">Điểm đến</label>
+          <input
+            type="text"
+            name="destination"
+            value={tour.destination}
+            onChange={handleChange}
+            className="w-full border px-3 py-2 rounded"
+            required
+          />
         </div>
 
-        {/* Radio list */}
         <div>
-          <label className="block font-medium mb-1">Checkbox</label>
-
-          <div className="flex items-center space-x-2 mb-2">
-            <input
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadio1"
-              className="h-4 w-4 text-blue-600"
-            />
-            <label htmlFor="flexRadio1" className="text-gray-700">
-              Checkbox 1
-            </label>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <input
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadio2"
-              className="h-4 w-4 text-blue-600"
-            />
-            <label htmlFor="flexRadio2" className="text-gray-700">
-              Checkbox 2
-            </label>
-          </div>
+          <label className="block mb-1">Thời gian</label>
+          <input
+            type="text"
+            name="duration"
+            value={tour.duration}
+            onChange={handleChange}
+            className="w-full border px-3 py-2 rounded"
+            required
+          />
         </div>
 
-        {/* Select */}
         <div>
-          <label htmlFor="selectOption" className="block font-medium mb-1">
-            Select - option
-          </label>
-          <select
-            id="selectOption"
-            className="w-full border rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          <label className="block mb-1">Giá (VNĐ)</label>
+          <input
+            type="number"
+            name="price"
+            value={tour.price}
+            onChange={handleChange}
+            className="w-full border px-3 py-2 rounded"
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1">Ảnh (URL)</label>
+          <input
+            type="text"
+            name="image"
+            value={tour.image}
+            onChange={handleChange}
+            className="w-full border px-3 py-2 rounded"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1">Mô tả</label>
+          <textarea
+            name="description"
+            value={tour.description}
+            onChange={handleChange}
+            className="w-full border px-3 py-2 rounded"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1">Số lượng còn</label>
+          <input
+            type="number"
+            name="available"
+            value={tour.available}
+            onChange={handleChange}
+            className="w-full border px-3 py-2 rounded"
+            required
+          />
+        </div>
+
+        <div className="flex gap-3 mt-4">
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
           >
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-        </div>
+            {loading ? "Đang thêm..." : "Thêm tour"}
+          </button>
 
-        {/* Submit button */}
-        <button
-          type="submit"
-          className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-        >
-          Submit
-        </button>
+          <button
+            type="button"
+            onClick={() => navigate("/")}
+            className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
+          >
+            Hủy
+          </button>
+        </div>
       </form>
     </div>
   );
