@@ -8,6 +8,7 @@
       "price": 2500000,
       "image": "https://picsum.photos/400/300?random=1",
       "description": "Khám phá Sapa với những ruộng bậc thang tuyệt đẹp",
+      "category": "Tour noi dia",
       "available": 15
     },
     {
@@ -18,6 +19,7 @@
       "price": 1800000,
       "image": "https://picsum.photos/400/300?random=2",
       "description": "Du thuyền vịnh Hạ Long - Kỳ quan thiên nhiên thế giới",
+      "category": "Tour noi dia",
       "available": 20
     },
     {
@@ -28,26 +30,17 @@
       "price": 3200000,
       "image": "https://picsum.photos/400/300?random=3",
       "description": "Thành phố ngàn hoa với khí hậu mát mẻ quanh năm",
+      "category": "Tour noi dia",
       "available": 10
     },
     {
       "name": "hùng",
-      "destination": "Ha Noi",
-      "duration": "12:00 AM",
-      "price": 1200000,
-      "image": "https://picsum.photos/400/300?random=3",
-      "description": "1",
-      "available": -12,
-      "id": 5
-    },
-    {
-      "name": "hùng",
-      "destination": "Ha Noi",
-      "duration": "12:00 AM",
       "price": 123,
-      "image": "https://cavathanquoc.com/wp-content/uploads/2024/06/Ao-thun-tron-cotton-mau-xanh-duong-4.jpg",
-      "available": 123,
-      "id": 6
+      "destination": "spa",
+      "duration": "12Am",
+      "category": "Tour noi dia",
+      "image": "https://picsum.photos/400/300?random=1",
+      "id": 7
     }
   ]
 }

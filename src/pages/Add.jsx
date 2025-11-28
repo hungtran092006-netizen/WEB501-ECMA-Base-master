@@ -1,135 +1,128 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useState } from 'react'
+import { toast } from 'react-hot-toast'
+import axios from 'axios'
 
 function Add() {
-  const navigate = useNavigate();
-  const API_URL = "http://localhost:3001/tours";
+  const [name, setName] = useState('')
+  const [price, setPrice] = useState('')
+  const [destination, setDestination] = useState('')
+  const [duration, setDuration] = useState('')
+  const [category, setCategory] = useState('Tour noi dia')
+  const [image, setImage] = useState('')
 
-  const [tour, setTour] = useState({
-    name: "",
-    destination: "",
-    duration: "",
-    price: "",
-    image: "",
-    available: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setTour({ ...tour, [name]: value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-  
-    const newTour = {
-      ...tour,
-      price: Number(tour.price),
-      available: Number(tour.available),
-    };
-
+  // handleChange
+  const handleSubmit = async event => {
+    event.preventDefault()
     try {
-      await axios.post(API_URL, newTour);
-      navigate("/list");
+      await axios.post('http://localhost:3001/tours', {
+        name, // es6
+        price: Number(price),
+        destination : destination,
+        duration : duration,
+        category: category,
+        image: image,
+      })
+      toast.success('them thanh cong')
     } catch (error) {
-      console.error("Lỗi thêm tour:", error);
-      alert("Không thể thêm tour!");
+      toast.error(error.message)
     }
-  };
-
+  }
   return (
-    <div className="p-6 max-w-xl mx-auto">
-      <h1 className="text-2xl font-semibold mb-6">Thêm Tour</h1>
+    <div className="p-6">
+      <h1 className="text-2xl font-semibold mb-6">Thêm mới</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-
+      <form className="space-y-6" onSubmit={handleSubmit}>
+        {/* Text input */}
         <div>
-          <label className="block">Tên Tour</label>
+          <label htmlFor="text" className="block font-medium mb-1">
+            Tên Tour
+          </label>
           <input
+            value={name}
+            onChange={event => setName(event.target.value)}
             type="text"
-            name="name"
-            value={tour.name}
-            onChange={handleChange}
-            className="w-full border px-3 py-2 rounded"
+            id="text"
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+          <div>
+          <label htmlFor="text" className="block font-medium mb-1">
+            Điểm đến
+          </label>
+          <input
+            value={destination}
+            onChange={event => setDestination(event.target.value)}
+            type="text"
+            id="text"
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
         <div>
-          <label className="block">Điểm đến</label>
+          <label htmlFor="text" className="block font-medium mb-1">
+            Thời gian
+          </label>
           <input
+            value={duration}
+            onChange={event => setDuration(event.target.value)}
             type="text"
-            name="destination"
-            value={tour.destination}
-            onChange={handleChange}
-            className="w-full border px-3 py-2 rounded"
+            id="text"
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+         
+        <div>
+          <label className="block font-medium mb-1">Ảnh (URL)</label>
+          <input
+            value={image}
+            onChange={event => setImage(event.target.value)}
+            type="text"
+            placeholder="Nhập link ảnh..."
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
-        <div>
-          <label className="block">Thời gian</label>
-          <input
-            type="text"
-            name="duration"
-            value={tour.duration}
-            onChange={handleChange}
-            className="w-full border px-3 py-2 rounded"
-          />
-        </div>
 
         <div>
-          <label className="block">Giá</label>
+          <label htmlFor="text" className="block font-medium mb-1">
+            Price
+          </label>
           <input
+            value={price}
+            onChange={event => setPrice(event.target.value)}
             type="number"
-            name="price"
-            value={tour.price}
-            onChange={handleChange}
-            className="w-full border px-3 py-2 rounded"
+            id="text"
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
+        {/* Select */}
         <div>
-          <label className="block">Ảnh (URL)</label>
-          <input
-            type="text"
-            name="image"
-            value={tour.image}
-            onChange={handleChange}
-            className="w-full border px-3 py-2 rounded"
-          />
-        </div>
-
-        <div>
-          <label className="block">Số lượng còn</label>
-          <input
-            type="number"
-            name="available"
-            value={tour.available}
-            onChange={handleChange}
-            className="w-full border px-3 py-2 rounded"
-          />
-        </div>
-
-        <div className="flex gap-3 mt-4">
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          <label htmlFor="selectOption" className="block font-medium mb-1">
+            Category
+          </label>
+          <select
+            value={category}
+            onChange={e => setCategory(e.target.value)}
+            id="selectOption"
+            className="w-full border rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            Thêm
-          </button>
-
-          <button
-            type="button"
-            onClick={() => navigate("/list")}
-            className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
-          >
-            Hủy
-          </button>
+            <option value="Tour noi dia">Tour noi dia</option>
+            <option value="Tour quoc te">Tour quoc te</option>
+          </select>
         </div>
+
+        {/* Submit button */}
+        <button
+          type="submit"
+          className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+        >
+          Submit
+        </button>
       </form>
     </div>
-  );
+  )
 }
 
-export default Add;
+export default Add
