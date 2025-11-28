@@ -2,6 +2,7 @@ import { Toaster } from "react-hot-toast";
 import { Routes, Route, Link } from "react-router-dom";
 import List from "./pages/List";
 import Add from "./pages/Add";
+import Edit from "./pages/Edit";
 
 
 
@@ -23,7 +24,7 @@ function App() {
               Danh sách
             </Link>
 
-            <Link to="/Add" className="hover:text-gray-200">
+            <Link to="/add" className="hover:text-gray-200">
               Thêm mới
             </Link>
          
@@ -47,7 +48,8 @@ function App() {
 
         <Routes>
           <Route path="/List" element={<List />} />
-          <Route path="/Add" element={<Add />} />
+          <Route path="/add" element={<Add />} />
+          <Route path="/pages/edit/:id" element={<Edit />} />
       
         </Routes>
          

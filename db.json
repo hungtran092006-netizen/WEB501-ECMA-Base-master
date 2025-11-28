@@ -1,15 +1,13 @@
 {
   "tours": [
     {
-      "id": 1,
       "name": "Hà Nội - Sapa 3N2D",
+      "price": 2500000,
       "destination": "Sapa",
       "duration": "3 ngày 2 đêm",
-      "price": 2500000,
+      "category": "Tour nội địa",
       "image": "https://picsum.photos/400/300?random=1",
-      "description": "Khám phá Sapa với những ruộng bậc thang tuyệt đẹp",
-      "category": "Tour noi dia",
-      "available": 15
+      "id": 1
     },
     {
       "id": 2,
@@ -19,7 +17,7 @@
       "price": 1800000,
       "image": "https://picsum.photos/400/300?random=2",
       "description": "Du thuyền vịnh Hạ Long - Kỳ quan thiên nhiên thế giới",
-      "category": "Tour noi dia",
+      "category": "Tour nội địa",
       "available": 20
     },
     {
@@ -30,17 +28,26 @@
       "price": 3200000,
       "image": "https://picsum.photos/400/300?random=3",
       "description": "Thành phố ngàn hoa với khí hậu mát mẻ quanh năm",
-      "category": "Tour noi dia",
+      "category": "Tour nội địa",
       "available": 10
+    },
+    {
+      "name": "hùnggg",
+      "image": "https://picsum.photos/400/300?random=1",
+      "destination": "spa",
+      "duration": "12Am",
+      "price": 123,
+      "category": "Tour quốc tế",
+      "id": 7
     },
     {
       "name": "hùng",
       "price": 123,
-      "destination": "spa",
-      "duration": "12Am",
-      "category": "Tour noi dia",
-      "image": "https://picsum.photos/400/300?random=1",
-      "id": 7
+      "destination": "hùng",
+      "duration": "hùng",
+      "category": "Tour quốc tế",
+      "image": "https://picsum.photos/400/300?random=3",
+      "id": 9
     }
   ]
 }

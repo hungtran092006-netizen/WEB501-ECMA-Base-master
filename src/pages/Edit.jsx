@@ -1,152 +1,133 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import axios from "axios";
 
 function Edit() {
   const { id } = useParams();
-  const navigate = useNavigate();
 
-  const API_URL = "http://localhost:3001/tours";
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [destination, setDestination] = useState("");
+  const [duration, setDuration] = useState("");
+  const [category, setCategory] = useState("Tour noi dia");
+  const [image, setImage] = useState("");
 
-  const [tour, setTour] = useState({
-    name: "",
-    image: "",
-    destination: "",
-    duration: "",
-    price: "",
-    available: "",
-  });
-
-  const [loading, setLoading] = useState(true);
-
-  // ✅ Load dữ liệu tour theo ID
+  
   useEffect(() => {
     axios
-      .get(`${API_URL}/${id}`)
-      .then((res) => setTour(res.data))
-      .catch((err) => {
-        console.error(err);
-        alert("Không tìm thấy tour!");
-        navigate("/");
+      .get(`http://localhost:3001/tours/${id}`)
+      .then((res) => {
+        const t = res.data;
+        setName(t.name);
+        setPrice(t.price);
+        setDestination(t.destination);
+        setDuration(t.duration);
+        setCategory(t.category);
+        setImage(t.image);
       })
-      .finally(() => setLoading(false));
+      .catch(() => toast.error("Không tìm thấy tour"));
   }, [id]);
 
-  // ✅ Lưu thay đổi
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // Submit update
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     try {
-      await axios.put(`${API_URL}/${id}`, tour);
-      alert("Cập nhật thành công!");
-      navigate("/list"); // Quay lại List
-    } catch (err) {
-      console.error(err);
-      alert("Cập nhật thất bại!");
+      await axios.put(`http://localhost:3001/tours/${id}`, {
+        name,
+        price: Number(price),
+        destination,
+        duration,
+        category,
+        image,
+      });
+
+      toast.success("Sửa thành công!");
+    } catch (error) {
+      toast.error("Sửa thất bại!");
     }
   };
 
-  if (loading) return <p className="text-center mt-6">Đang tải dữ liệu...</p>;
-
   return (
-    <div className="p-6 max-w-xl mx-auto">
-      <h1 className="text-2xl font-semibold mb-6">Cập nhật Tour</h1>
+    <div className="p-6">
+      <h1 className="text-2xl font-semibold mb-6">Chỉnh sửa Tour</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Tên tour */}
+      <form className="space-y-6" onSubmit={handleSubmit}>
+
         <div>
-          <label className="block font-medium mb-1">Tên tour</label>
+          <label className="block font-medium mb-1">Tên Tour</label>
           <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             type="text"
-            value={tour.name}
-            onChange={(e) => setTour({ ...tour, name: e.target.value })}
-            className="w-full border px-3 py-2 rounded"
-            required
+            className="w-full border rounded-lg px-3 py-2"
           />
         </div>
 
-        {/* Ảnh */}
-        <div>
-          <label className="block font-medium mb-1">Link ảnh</label>
-          <input
-            type="text"
-            value={tour.image}
-            onChange={(e) => setTour({ ...tour, image: e.target.value })}
-            className="w-full border px-3 py-2 rounded"
-            required
-          />
-        </div>
-
-        {/* Điểm đến */}
         <div>
           <label className="block font-medium mb-1">Điểm đến</label>
           <input
+            value={destination}
+            onChange={(e) => setDestination(e.target.value)}
             type="text"
-            value={tour.destination}
-            onChange={(e) => setTour({ ...tour, destination: e.target.value })}
-            className="w-full border px-3 py-2 rounded"
-            required
+            className="w-full border rounded-lg px-3 py-2"
           />
         </div>
 
-        {/* Thời gian */}
         <div>
           <label className="block font-medium mb-1">Thời gian</label>
           <input
+            value={duration}
+            onChange={(e) => setDuration(e.target.value)}
             type="text"
-            value={tour.duration}
-            onChange={(e) => setTour({ ...tour, duration: e.target.value })}
-            className="w-full border px-3 py-2 rounded"
-            required
+            className="w-full border rounded-lg px-3 py-2"
           />
         </div>
 
-        {/* Giá */}
+        <div>
+          <label className="block font-medium mb-1">Ảnh (URL)</label>
+          <input
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+            type="text"
+            className="w-full border rounded-lg px-3 py-2"
+          />
+        </div>
+
         <div>
           <label className="block font-medium mb-1">Giá</label>
           <input
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
             type="number"
-            value={tour.price}
-            onChange={(e) => setTour({ ...tour, price: Number(e.target.value) })}
-            className="w-full border px-3 py-2 rounded"
-            required
+            className="w-full border rounded-lg px-3 py-2"
           />
         </div>
 
-        {/* Số lượng */}
         <div>
-          <label className="block font-medium mb-1">Số lượng còn</label>
-          <input
-            type="number"
-            value={tour.available}
-            onChange={(e) =>
-              setTour({ ...tour, available: Number(e.target.value) })
-            }
-            className="w-full border px-3 py-2 rounded"
-            required
-          />
+          <label className="block font-medium mb-1">Category</label>
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="w-full border rounded-lg px-3 py-2 bg-white"
+          >
+            <option value="Tour nội địa">Tour nội địa</option>
+            <option value="Tour quốc tế">Tour quốc tế</option>
+          </select>
         </div>
 
-        {/* Nút */}
-        <div className="flex gap-3 mt-4">
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          >
-            Cập nhật
-          </button>
-
-          <button
-            type="button"
-            onClick={() => navigate("/")}
-            className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
-          >
-            Hủy
-          </button>
-        </div>
+        <button
+          type="submit"
+          className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+        >
+          Lưu thay đổi
+        </button>
       </form>
     </div>
   );
 }
 
 export default Edit;
+
+

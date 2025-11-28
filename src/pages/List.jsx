@@ -52,7 +52,7 @@ function List() {
               <th className="px-4 py-2 border">Điểm đến</th>
               <th className="px-4 py-2 border">Thời gian</th>
               <th className="px-4 py-2 border">Giá</th>
-              <th className="px-4 py-2 border">Category</th>
+              <th className="px-4 py-2 border">Loại Tour</th>
               <th className="px-4 py-2 border">Hành động</th>
             </tr>
           </thead>
