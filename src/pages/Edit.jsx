@@ -39,7 +39,7 @@ function Edit() {
     try {
       await axios.put(`${API_URL}/${id}`, tour);
       alert("Cập nhật thành công!");
-      navigate("/"); // Quay lại List
+      navigate("/list"); // Quay lại List
     } catch (err) {
       console.error(err);
       alert("Cập nhật thất bại!");

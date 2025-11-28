@@ -10,7 +10,7 @@ function List() {
   const API_URL = "http://localhost:3001/tours";
   const navigate = useNavigate();
 
-  // ✅ Load danh sách tours
+
   useEffect(() => {
     axios
       .get(API_URL)
@@ -22,7 +22,6 @@ function List() {
       .finally(() => setLoading(false));
   }, []);
 
-  // ✅ Xóa tour
   const handleDelete = async (id) => {
     if (window.confirm("Bạn có chắc chắn muốn xóa tour này?")) {
       try {
@@ -35,10 +34,7 @@ function List() {
     }
   };
 
-  // ✅ Chuyển sang trang Edit
-  const handleEdit = (id) => {
-    navigate(`/edit/${id}`);
-  };
+  
 
   
 
@@ -94,7 +90,7 @@ function List() {
                   </button>
 
                   <button
-                    onClick={() => handleEdit(tour.id)}
+                    onClick={() => navigate(`/pages/Edit/${tour.id}`)}
                     className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
                   >
                     Sửa
