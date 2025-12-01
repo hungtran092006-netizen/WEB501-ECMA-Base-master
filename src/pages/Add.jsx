@@ -10,12 +10,12 @@ function Add() {
   const [category, setCategory] = useState('Tour noi dia')
   const [image, setImage] = useState('')
 
-  // handleChange
+
   const handleSubmit = async event => {
     event.preventDefault()
     try {
       await axios.post('http://localhost:3001/tours', {
-        name, // es6
+        name, 
         price: Number(price),
         destination : destination,
         duration : duration,
@@ -32,7 +32,7 @@ function Add() {
       <h1 className="text-2xl font-semibold mb-6">Thêm mới</h1>
 
       <form className="space-y-6" onSubmit={handleSubmit}>
-        {/* Text input */}
+       
         <div>
           <label htmlFor="text" className="block font-medium mb-1">
             Tên Tour
@@ -97,7 +97,7 @@ function Add() {
           />
         </div>
 
-        {/* Select */}
+        
         <div>
           <label htmlFor="selectOption" className="block font-medium mb-1">
             Category
@@ -113,7 +113,7 @@ function Add() {
           </select>
         </div>
 
-        {/* Submit button */}
+      
         <button
           type="submit"
           className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
