@@ -29,7 +29,7 @@ function Edit() {
       .catch(() => toast.error("Không tìm thấy tour"));
   }, [id]);
 
-  // Submit update
+ 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
