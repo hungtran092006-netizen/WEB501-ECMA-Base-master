@@ -5,7 +5,7 @@
       "price": 2500000,
       "destination": "Sapa",
       "duration": "3 ngày 2 đêm",
-      "category": "Tour nội địa",
+      "category": "Tour quốc tế",
       "image": "https://picsum.photos/400/300?random=1",
       "id": 1
     },
@@ -48,6 +48,20 @@
       "category": "Tour quốc tế",
       "image": "https://picsum.photos/400/300?random=3",
       "id": 9
+    }
+  ],
+  "users": [
+    {
+      "email": "admin@gmail.com",
+      "password": "$2a$10$TnXSqznnzCHaMXX3pAH54.4TgtAjyHAjvL206quuv7vS4ol7ppi0y",
+      "name": "Lập trình PHP1",
+      "id": 1
+    },
+    {
+      "email": "hotro@futabus.vn",
+      "password": "$2a$10$IqvZ0NgOpWGpJipSwxEF9OjeZk5RX5NBklKg4z46hGCUtkgDjbugu",
+      "name": "Lập trình PHP1",
+      "id": 2
     }
   ]
 }
