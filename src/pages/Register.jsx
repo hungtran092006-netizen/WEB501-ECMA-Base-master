@@ -1,86 +1,70 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { toast } from "react-hot-toast";
+import { useState } from 'react'
+import { toast } from 'react-hot-toast'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function Register() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleRegister = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async event => {
+    event.preventDefault()
     try {
-      await axios.post("http://localhost:3001/register", form);
-      toast.success("Đăng ký thành công!");
-      navigate("/login");
+      navigate('/login')
+      await axios.post('http://localhost:3001/register', {
+        email,
+        password,
+      })
+      toast.success('Đăng ký thành công')
+      navigate('/login')
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message)
     }
-  };
+  }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-      <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-2xl font-bold text-center mb-6">Đăng ký</h2>
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8">
+        <h1 className="text-3xl font-semibold mb-6 text-center">Dang ky tai khoan</h1>
 
-        <form className="space-y-4" onSubmit={handleRegister}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Tên"
-            value={form.name}
-            onChange={handleChange}
-            className="w-full px-4 py-3 border rounded-lg"
-          />
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="email" className="block font-medium mb-1">
+              Email
+            </label>
+            <input
+              value={email}
+              onChange={event => setEmail(event.target.value)}
+              type="email"
+              id="email"
+              className="w-full border rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={handleChange}
-            className="w-full px-4 py-3 border rounded-lg"
-          />
-
-          <input
-            type="password"
-            name="password"
-            placeholder="Mật khẩu"
-            value={form.password}
-            onChange={handleChange}
-            className="w-full px-4 py-3 border rounded-lg"
-          />
+          <div>
+            <label htmlFor="password" className="block font-medium mb-1">
+              Password
+            </label>
+            <input
+              value={password}
+              onChange={event => setPassword(event.target.value)}
+              type="password"
+              id="password"
+              className="w-full border rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
 
           <button
             type="submit"
-            className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700"
+            className="w-full px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow"
           >
-            Đăng ký
+            Submit
           </button>
         </form>
-
-        <p className="text-center text-sm mt-4">
-          Đã có tài khoản?{" "}
-          <Link to="/login" className="text-blue-600">
-            Đăng nhập
-          </Link>
-        </p>
       </div>
     </div>
-  );
+  )
 }
 
-export default Register;
+export default Register

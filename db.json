@@ -62,6 +62,16 @@
       "password": "$2a$10$IqvZ0NgOpWGpJipSwxEF9OjeZk5RX5NBklKg4z46hGCUtkgDjbugu",
       "name": "Lập trình PHP1",
       "id": 2
+    },
+    {
+      "email": "hihi@gmail.com",
+      "password": "$2a$10$llN59YDN./95BfPxG08He.tV8OFGR6UrSYZGglDZYRB/DQq55zgve",
+      "id": 3
+    },
+    {
+      "email": "babi@gmail.com",
+      "password": "$2a$10$KCzgglcAiyGM5h0lifKUCOAcxfGwBFctNMvdZRqsishc0OfJtEQ9G",
+      "id": 4
     }
   ]
 }
