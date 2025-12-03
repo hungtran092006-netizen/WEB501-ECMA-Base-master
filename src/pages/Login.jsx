@@ -17,8 +17,6 @@ function Login() {
         email,
         password
       })
-
-      // Lưu token + user
       localStorage.setItem('token', res.data.accessToken)
       localStorage.setItem('user', JSON.stringify(res.data.user))
 
