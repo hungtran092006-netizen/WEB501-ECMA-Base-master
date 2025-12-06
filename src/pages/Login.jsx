@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast'
 import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
 
-function Login() {
+function Login({ setIsLogged }) {
   const navigate = useNavigate()
 
   const [email, setEmail] = useState('')
@@ -19,7 +19,7 @@ function Login() {
       })
       localStorage.setItem('token', res.data.accessToken)
       localStorage.setItem('user', JSON.stringify(res.data.user))
-
+      setIsLogged(true)
       toast.success('Đăng nhập thành công!')
       navigate('/list')
     } catch (error) {

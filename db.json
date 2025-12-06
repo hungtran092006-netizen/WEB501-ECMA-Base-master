@@ -39,15 +39,6 @@
       "price": 123,
       "category": "Tour quốc tế",
       "id": 7
-    },
-    {
-      "name": "hùng",
-      "price": 123,
-      "destination": "hùng",
-      "duration": "hùng",
-      "category": "Tour quốc tế",
-      "image": "https://picsum.photos/400/300?random=3",
-      "id": 9
     }
   ],
   "users": [
